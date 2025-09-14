@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
 
 interface ProductCardProps {
   product: {
@@ -16,14 +19,40 @@ interface ProductCardProps {
 export function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/product/${product.slug}`} className="group">
-      <div className="group rounded-2xl bg-white shadow hover:shadow-lg transition-all duration-300 group-hover:scale-[1.02]">
+      <div 
+        className="group rounded-2xl bg-white shadow hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02] group-hover:-translate-y-2"
+        style={{ perspective: '1000px' }}
+      >
         {/* Image */}
-        <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-slate-50">
+        <div 
+          className="relative aspect-square overflow-hidden rounded-t-2xl bg-slate-50"
+          style={{ 
+            boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)',
+            transformStyle: 'preserve-3d'
+          }}
+        >
           <Image
             src={product.coverUrl}
             alt={product.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
+            style={{
+              transform: 'translateZ(0)',
+              transition: 'transform 0.3s ease-out'
+            }}
+            onMouseEnter={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect()
+              const centerX = rect.left + rect.width / 2
+              const centerY = rect.top + rect.height / 2
+              const mouseX = e.clientX - centerX
+              const mouseY = e.clientY - centerY
+              const rotateX = (mouseY / rect.height) * 8 - 4
+              const rotateY = (mouseX / rect.width) * 8 - 4
+              e.currentTarget.style.transform = `translateZ(0) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateZ(0) rotateX(0deg) rotateY(0deg) scale(1)'
+            }}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         </div>

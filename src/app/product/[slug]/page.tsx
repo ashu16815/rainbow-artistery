@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -10,50 +10,32 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/json-ld'
-import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Instagram, Star } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Instagram, Star, Loader2 } from 'lucide-react'
 
-// Mock product data - in real app, this would come from database
-const product = {
-  id: '1',
-  title: 'Jiya — Personalized Ring Wall Hanging',
-  slug: 'jiya-ring-wall-hanging',
-  description: 'Pink center with mirror-work border and soft tassels. Perfect gift for newborns and birthdays. This beautiful handmade wall hanging features intricate mirror work and delicate tassels that add a touch of elegance to any room.',
-  category: 'Wall Hanging',
-  tags: 'personalized,birthday,nursery',
-  personalizable: true,
-  priceINR: 899,
-  coverUrl: '/seed/jiya-ring.jpg',
-  mediaUrls: '/seed/jiya-ring.jpg,/seed/jiya-ring-2.jpg,/seed/jiya-ring-3.jpg',
-  videoUrl: null,
-  colors: 'Pink,White,Silver',
-  sizeNote: 'Approx. 8 inch ring',
-  materials: 'Cotton threads, mirrors, beads',
-  isPublished: true
+interface Product {
+  id: string
+  title: string
+  slug: string
+  description: string
+  category: string
+  tags: string[]
+  personalizable: boolean
+  priceINR: number
+  coverUrl: string
+  mediaUrls: string[]
+  videoUrl: string | null
+  sizeNote: string
+  materials: string
+  isPublished: boolean
 }
 
-const relatedProducts = [
-  {
-    id: '2',
-    title: 'Ankit & Divya — Name Ring',
-    slug: 'ankit-divya-name-ring',
-    coverUrl: '/seed/ankit-divya-blue.jpg',
-    priceINR: 1299
-  },
-  {
-    id: '3',
-    title: 'Mini Animal Magnets Set',
-    slug: 'mini-animal-magnets',
-    coverUrl: '/seed/animal-magnets.jpg',
-    priceINR: 599
-  },
-  {
-    id: '4',
-    title: 'Krishna Motif Plate',
-    slug: 'krishna-motif-plate',
-    coverUrl: '/seed/krishna-plate.jpg',
-    priceINR: 799
-  }
-]
+interface RelatedProduct {
+  id: string
+  title: string
+  slug: string
+  coverUrl: string
+  priceINR: number
+}
 
 const testimonials = [
   {
@@ -71,6 +53,10 @@ const testimonials = [
 ]
 
 export default function ProductDetailPage({ params }: { params: { slug: string } }) {
+  const [product, setProduct] = useState<Product | null>(null)
+  const [relatedProducts, setRelatedProducts] = useState<RelatedProduct[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [selectedImage, setSelectedImage] = useState(0)
   const [personalization, setPersonalization] = useState({
     name: '',
@@ -79,9 +65,60 @@ export default function ProductDetailPage({ params }: { params: { slug: string }
   })
   const [isWishlisted, setIsWishlisted] = useState(false)
 
-  const mediaUrls = product.mediaUrls.split(',').filter(Boolean)
-  const colors = product.colors.split(',').map(c => c.trim())
-  const tags = product.tags.split(',').map(t => t.trim())
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        setLoading(true)
+        const response = await fetch(`/api/products/${params.slug}`)
+        if (!response.ok) {
+          throw new Error('Product not found')
+        }
+        const data = await response.json()
+        setProduct(data)
+        
+        // Fetch related products
+        const relatedResponse = await fetch('/api/products?limit=3')
+        if (relatedResponse.ok) {
+          const relatedData = await relatedResponse.json()
+          setRelatedProducts(relatedData.filter((p: Product) => p.slug !== params.slug))
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load product')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProduct()
+  }, [params.slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+          <p className="text-slate-600">Loading product...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error || !product) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Product Not Found</h1>
+          <p className="text-slate-600 mb-6">{error || 'The product you are looking for does not exist.'}</p>
+          <Button asChild>
+            <Link href="/gallery">Back to Gallery</Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  const mediaUrls = product.mediaUrls || []
+  const tags = product.tags || []
 
   const handleWhatsAppOrder = () => {
     const message = `Hi! I'm interested in the ${product.title}. 
@@ -199,7 +236,9 @@ Please let me know about availability and pricing.`
 
             {/* Price */}
             <div className="flex items-center space-x-4">
-              <span className="text-3xl font-bold text-primary">₹{product.priceINR}</span>
+              <span className="text-3xl font-bold text-primary">
+                {product.priceINR > 0 ? `₹${product.priceINR}` : 'Made to order'}
+              </span>
               <div className="flex items-center space-x-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
@@ -210,16 +249,6 @@ Please let me know about availability and pricing.`
 
             {/* Specifications */}
             <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-2">Available Colors</h3>
-                <div className="flex flex-wrap gap-2">
-                  {colors.map((color) => (
-                    <Badge key={color} variant="outline">
-                      {color}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
               
               <div>
                 <h3 className="font-semibold text-slate-900 mb-2">Size</h3>
@@ -333,32 +362,36 @@ Please let me know about availability and pricing.`
         </section>
 
         {/* Related Products */}
-        <section className="mt-16">
-          <h2 className="text-2xl font-bold text-slate-900 mb-8">You Might Also Like</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {relatedProducts.map((relatedProduct) => (
-              <Card key={relatedProduct.id} className="group hover:shadow-soft-lg transition-all duration-300">
-                <div className="aspect-square relative overflow-hidden rounded-t-lg">
-                  <Image
-                    src={relatedProduct.coverUrl}
-                    alt={relatedProduct.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-slate-900 mb-2">{relatedProduct.title}</h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-primary">₹{relatedProduct.priceINR}</span>
-                    <Button size="sm" asChild>
-                      <Link href={`/product/${relatedProduct.slug}`}>View Details</Link>
-                    </Button>
+        {relatedProducts.length > 0 && (
+          <section className="mt-16">
+            <h2 className="text-2xl font-bold text-slate-900 mb-8">You Might Also Like</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {relatedProducts.map((relatedProduct) => (
+                <Card key={relatedProduct.id} className="group hover:shadow-soft-lg transition-all duration-300">
+                  <div className="aspect-square relative overflow-hidden rounded-t-lg">
+                    <Image
+                      src={relatedProduct.coverUrl}
+                      alt={relatedProduct.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-slate-900 mb-2">{relatedProduct.title}</h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg font-bold text-primary">
+                        {relatedProduct.priceINR > 0 ? `₹${relatedProduct.priceINR}` : 'Made to order'}
+                      </span>
+                      <Button size="sm" asChild>
+                        <Link href={`/product/${relatedProduct.slug}`}>View Details</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )

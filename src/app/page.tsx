@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Heart, Palette, Truck, Star, Instagram, MessageCircle } from 'lucide-react'
 import { Hero } from '@/components/hero'
 import { ProductCard } from '@/components/product-card'
-import { CardReveal, StaggeredReveal } from '@/components/motion/card-reveal'
+import { ScrollReveal, StaggeredReveal } from '@/components/motion/scroll-reveal'
 import { ArtDivider } from '@/components/motion/art-divider'
 
 const uspCards = [
@@ -125,10 +125,10 @@ export default function Home() {
       {/* Featured Products */}
       <section className="py-12 sm:py-16 bg-slate-50">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <CardReveal className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900">Featured Products</h2>
             <p className="mt-4 text-lg text-slate-600">Discover our most popular handmade creations</p>
-          </CardReveal>
+          </ScrollReveal>
           <StaggeredReveal className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />

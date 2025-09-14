@@ -5,6 +5,8 @@ import { Instagram, MessageCircle, Heart } from 'lucide-react'
 export function Footer() {
   return (
     <footer className="bg-slate-50 border-t">
+      {/* Gradient line divider */}
+      <div className="h-px bg-gradient-to-r from-indigo-200 via-pink-200 to-emerald-200"></div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}

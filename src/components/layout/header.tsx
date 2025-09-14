@@ -17,7 +17,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-soft sticky top-0 z-50">
+    <header className="bg-white/70 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-white/20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -34,9 +34,10 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-slate-600 hover:text-primary transition-colors duration-200 font-medium"
+                className="relative text-slate-600 hover:text-primary transition-colors duration-200 font-medium group"
               >
                 {item.name}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 ease-in-out group-hover:w-full"></span>
               </Link>
             ))}
           </nav>
