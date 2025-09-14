@@ -34,7 +34,7 @@ export default function RootLayout({
           url={process.env.NEXTAUTH_URL || 'https://rainbowartistery.in'}
           logo={`${process.env.NEXTAUTH_URL || 'https://rainbowartistery.in'}/logo.png`}
           sameAs={[
-            process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/rainbowartistery',
+            'https://www.instagram.com/rainbow_artistery/',
             process.env.NEXT_PUBLIC_WHATSAPP_LINK || 'https://wa.me/919999999999',
           ]}
           address={{

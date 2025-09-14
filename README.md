@@ -55,6 +55,7 @@ A beautiful, production-ready handmade crafts website built with modern web tech
    Fill in the required environment variables:
    ```env
    # Database (Supabase PostgreSQL)
+   
    DATABASE_URL="postgresql://username:password@localhost:5432/rainbow_artistery"
    
    # NextAuth
@@ -70,7 +71,7 @@ A beautiful, production-ready handmade crafts website built with modern web tech
    SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
    
    # Social Links
-   INSTAGRAM_URL="https://www.instagram.com/reel/DOBDxT2kfO9/?igsh=MWV3cWMzNzBnOGhkdA%3D%3D"
+   INSTAGRAM_URL="https://www.instagram.com/rainbow_artistery/"
    WHATSAPP_LINK="https://wa.me/919999999999"
    
    # Email Service (Optional)

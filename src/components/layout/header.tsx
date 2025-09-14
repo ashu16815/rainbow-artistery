@@ -47,7 +47,7 @@ export function Header() {
             <div className="hidden sm:flex items-center space-x-2">
               <Button variant="ghost" size="sm" asChild>
                 <a
-                  href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || '#'}
+                  href="https://www.instagram.com/rainbow_artistery/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-600 hover:text-accent"
@@ -107,7 +107,7 @@ export function Header() {
                   <div className="flex items-center space-x-2 pt-4 border-t">
                     <Button variant="ghost" size="sm" asChild>
                       <a
-                        href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || '#'}
+                        href="https://www.instagram.com/rainbow_artistery/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-slate-600 hover:text-accent"

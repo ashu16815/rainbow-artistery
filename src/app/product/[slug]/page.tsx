@@ -98,7 +98,7 @@ Please let me know about availability and pricing.`
   }
 
   const handleInstagramOrder = () => {
-    window.open(process.env.NEXT_PUBLIC_INSTAGRAM_URL, '_blank')
+    window.open('https://www.instagram.com/rainbow_artistery/', '_blank')
   }
 
   return (

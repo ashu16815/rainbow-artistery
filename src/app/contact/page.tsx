@@ -191,7 +191,7 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-slate-900">Instagram</h3>
                     <p className="text-slate-600">See our latest creations and behind-the-scenes</p>
                     <a
-                      href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || '#'}
+                      href="https://www.instagram.com/rainbow_artistery/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary hover:underline"

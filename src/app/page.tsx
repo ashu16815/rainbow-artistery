@@ -172,7 +172,7 @@ export default function Home() {
           </div>
           <Button size="lg" asChild>
             <a
-              href={process.env.NEXT_PUBLIC_INSTAGRAM_URL || '#'}
+              href="https://www.instagram.com/rainbow_artistery/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center"
