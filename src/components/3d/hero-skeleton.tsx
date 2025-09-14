@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 
 export function HeroSkeleton() {
   return (
-    <div className="w-full h-[600px] md:h-[720px] relative overflow-hidden bg-gradient-to-br from-slate-50 to-indigo-50">
+    <div className="w-full h-[600px] md:h-[720px] relative overflow-hidden bg-gradient-to-r from-indigo-50 via-white to-pink-50">
       {/* Static background with subtle pattern */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.05),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(79,70,229,0.03),transparent_50%)]" />
       
       {/* Floating geometric shapes as placeholders */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -73,7 +73,7 @@ export function HeroSkeleton() {
             Handmade wall hangings & gifts
           </motion.h1>
           <motion.p
-            className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed"
+            className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}

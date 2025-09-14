@@ -187,12 +187,16 @@ function Scene() {
 // Main Hero3D Component
 export default function Hero3D() {
   return (
-    <div className="w-full h-[600px] md:h-[720px] relative overflow-hidden">
+    <div className="w-full h-[600px] md:h-[720px] relative overflow-hidden bg-gradient-to-r from-indigo-50 via-white to-pink-50">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: 'transparent' }}
         performance={{ min: 0.5 }}
         dpr={[1, 2]}
+        gl={{ antialias: true, alpha: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0) // Ensure transparent background
+        }}
       >
         <Scene />
         <OrbitControls
@@ -212,7 +216,7 @@ export default function Hero3D() {
           <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-wide">
             Handmade wall hangings & gifts
           </h1>
-          <p className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto">
             Modern artistry, traditional soul. Personalised name plates, magnets and festive décor.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pointer-events-auto">
