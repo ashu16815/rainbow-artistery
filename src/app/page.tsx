@@ -3,6 +3,10 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Heart, Palette, Truck, Star, Instagram, MessageCircle } from 'lucide-react'
+import { Hero3DWrapper } from '@/components/3d/hero-3d-wrapper'
+import { FloatingBadges } from '@/components/motion/floating-badges'
+import { CardReveal, StaggeredReveal } from '@/components/motion/card-reveal'
+import { ArtDivider } from '@/components/motion/art-divider'
 
 const uspCards = [
   {
@@ -95,38 +99,24 @@ const giftingBadges = ['Birthday', 'Housewarming', 'Festivals', 'Baby Naming']
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-        <div className="absolute inset-0 rainbow-gradient opacity-5"></div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-              Handmade wall hangings & gifts — crafted with love in India.
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-slate-600 max-w-2xl mx-auto">
-              Personalised name plates, fridge magnets, festive décor & more. 
-              Every piece tells a story of tradition, craftsmanship, and love.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button size="lg" asChild>
-                <Link href="/gallery">Browse Gallery</Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/contact">Custom Order</Link>
-              </Button>
-            </div>
-          </div>
+      {/* 3D Hero Section */}
+      <section className="relative">
+        <Hero3DWrapper />
+        
+        {/* Floating badges overlay */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <FloatingBadges />
         </div>
       </section>
 
       {/* USP Cards */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <StaggeredReveal className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {uspCards.map((card) => (
-              <Card key={card.title} className="text-center shadow-soft hover:shadow-soft-lg transition-shadow">
+              <Card key={card.title} className="text-center shadow-soft hover:shadow-soft-lg transition-all duration-300 group hover:scale-105">
                 <CardContent className="pt-6">
-                  <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                  <div className="mx-auto w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <card.icon className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-slate-900 mb-2">{card.title}</h3>
@@ -134,26 +124,28 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </StaggeredReveal>
         </div>
       </section>
+
+      <ArtDivider />
 
       {/* Featured Products */}
       <section className="py-16 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <CardReveal className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900">Featured Products</h2>
             <p className="mt-4 text-lg text-slate-600">Discover our most popular handmade creations</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          </CardReveal>
+          <StaggeredReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group hover:shadow-soft-lg transition-all duration-300">
+              <Card key={product.id} className="group hover:shadow-soft-lg transition-all duration-300 hover:scale-105">
                 <div className="aspect-square relative overflow-hidden rounded-t-lg">
                   <Image
                     src={product.coverUrl}
                     alt={product.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
                 <CardContent className="p-4">
@@ -175,7 +167,7 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </StaggeredReveal>
           <div className="text-center mt-8">
             <Button size="lg" asChild>
               <Link href="/gallery">View All Products</Link>
