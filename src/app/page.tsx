@@ -30,7 +30,9 @@ const featuredProducts = [
     description: 'Pink center with mirror-work border and soft tassels.',
     coverUrl: '/seed/jiya-ring.jpg',
     priceINR: 899,
-    colors: ['Pink', 'White', 'Silver']
+    isFeatured: true,
+    featuredOrder: 1,
+    tags: ['personalized', 'birthday', 'nursery']
   },
   {
     id: '2',
@@ -39,7 +41,9 @@ const featuredProducts = [
     description: 'Elegant blue gradient ring with white/blue tassels.',
     coverUrl: '/seed/ankit-divya-blue.jpg',
     priceINR: 1299,
-    colors: ['Blue', 'White']
+    isFeatured: true,
+    featuredOrder: 2,
+    tags: ['couple', 'housewarming']
   },
   {
     id: '3',
@@ -48,7 +52,9 @@ const featuredProducts = [
     description: 'Pastel square magnets with cute animals and custom names.',
     coverUrl: '/seed/animal-magnets.jpg',
     priceINR: 599,
-    colors: ['Pastels']
+    isFeatured: true,
+    featuredOrder: 3,
+    tags: ['kids', 'birthday', 'return gifts']
   },
   {
     id: '4',
@@ -57,7 +63,9 @@ const featuredProducts = [
     description: 'Serene blue-white plate inspired by Lord Krishna.',
     coverUrl: '/seed/krishna-plate.jpg',
     priceINR: 799,
-    colors: ['Blue', 'White']
+    isFeatured: true,
+    featuredOrder: 4,
+    tags: ['Krishna', 'festival', 'pooja']
   }
 ]
 
@@ -151,6 +159,13 @@ export default function Home() {
                 <CardContent className="p-4">
                   <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">{product.title}</h3>
                   <p className="text-sm text-slate-600 mb-3 line-clamp-2">{product.description}</p>
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {product.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-primary">₹{product.priceINR}</span>
                     <Button size="sm" asChild>
@@ -227,7 +242,7 @@ export default function Home() {
                       <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-slate-600 mb-4 italic">"{testimonial.quote}"</p>
+                  <p className="text-slate-600 mb-4 italic">&ldquo;{testimonial.quote}&rdquo;</p>
                   <div className="text-sm">
                     <p className="font-semibold text-slate-900">{testimonial.name}</p>
                     <p className="text-slate-500">{testimonial.city}</p>

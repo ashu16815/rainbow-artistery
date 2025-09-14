@@ -54,8 +54,8 @@ A beautiful, production-ready handmade crafts website built with modern web tech
    
    Fill in the required environment variables:
    ```env
-   # Database
-   DATABASE_URL="file:./dev.db"
+   # Database (Supabase PostgreSQL)
+   DATABASE_URL="postgresql://username:password@localhost:5432/rainbow_artistery"
    
    # NextAuth
    NEXTAUTH_URL="http://localhost:3000"
@@ -64,18 +64,16 @@ A beautiful, production-ready handmade crafts website built with modern web tech
    # Admin Configuration
    ADMIN_EMAILS="owner@rainbowartistery.in,admin@rainbowartistery.in"
    
-   # S3 Storage (Cloudflare R2 or AWS S3)
-   S3_ENDPOINT="https://your-account-id.r2.cloudflarestorage.com"
-   S3_REGION="auto"
-   S3_ACCESS_KEY_ID="your-access-key"
-   S3_SECRET_ACCESS_KEY="your-secret-key"
-   S3_BUCKET="rainbow-artistery"
+   # Supabase
+   NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="your-supabase-anon-key"
+   SUPABASE_SERVICE_ROLE_KEY="your-supabase-service-role-key"
    
    # Social Links
    INSTAGRAM_URL="https://www.instagram.com/reel/DOBDxT2kfO9/?igsh=MWV3cWMzNzBnOGhkdA%3D%3D"
    WHATSAPP_LINK="https://wa.me/919999999999"
    
-   # Email Service
+   # Email Service (Optional)
    RESEND_API_KEY="your-resend-api-key"
    ```
 

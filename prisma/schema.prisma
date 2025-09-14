@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -63,16 +63,17 @@ model Product {
   slug          String   @unique
   description   String
   category      String
-  tags          String
+  tags          String[] @default([])
   personalizable Boolean @default(true)
   priceINR      Int?
-  coverUrl      String
-  mediaUrls     String
-  videoUrl      String?
-  colors        String
-  sizeNote      String?
-  materials     String?
+  isFeatured    Boolean  @default(false)
+  featuredOrder Int?
   isPublished   Boolean  @default(false)
+  coverUrl      String
+  mediaUrls     String[] @default([])
+  videoUrl      String?
+  materials     String?
+  sizeNote      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
