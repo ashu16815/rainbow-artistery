@@ -14,6 +14,12 @@ export default function AdminLayout({
   const router = useRouter()
 
   useEffect(() => {
+    // Skip authentication check for login page
+    if (window.location.pathname === '/admin/login') {
+      setLoading(false)
+      return
+    }
+
     // Check if user is authenticated
     const adminAuth = localStorage.getItem('adminAuth')
     const adminUser = localStorage.getItem('adminUser')
@@ -39,6 +45,11 @@ export default function AdminLayout({
         </div>
       </div>
     )
+  }
+
+  // If we're on the login page, render it without authentication check
+  if (window.location.pathname === '/admin/login') {
+    return <>{children}</>
   }
 
   if (!isAuthenticated) {
