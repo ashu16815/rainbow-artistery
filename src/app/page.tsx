@@ -102,11 +102,6 @@ export default function Home() {
       {/* 3D Hero Section */}
       <section className="relative">
         <Hero3DWrapper />
-        
-        {/* Floating badges overlay */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
-          <FloatingBadges />
-        </div>
       </section>
 
       {/* USP Cards */}

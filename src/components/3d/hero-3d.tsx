@@ -187,45 +187,67 @@ function Scene() {
 // Main Hero3D Component
 export default function Hero3D() {
   return (
-    <div className="w-full h-[600px] md:h-[720px] relative overflow-hidden bg-gradient-to-r from-indigo-50 via-white to-pink-50">
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
-        style={{ background: 'transparent' }}
-        performance={{ min: 0.5 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor(0x000000, 0) // Ensure transparent background
-        }}
-      >
-        <Scene />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          autoRotate={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 2}
-          enableDamping
-          dampingFactor={0.05}
-        />
-      </Canvas>
+    <div className="relative isolate overflow-hidden bg-gradient-to-r from-indigo-50 via-white to-pink-50">
+      {/* 3D Scene - Hidden on mobile, shown on larger screens */}
+      <div className="absolute inset-0 -z-10 pointer-events-none hidden sm:block">
+        <Canvas
+          camera={{ position: [0, 0, 5], fov: 50 }}
+          style={{ background: 'transparent' }}
+          performance={{ min: 0.5 }}
+          dpr={[1, 2]}
+          gl={{ antialias: true, alpha: true }}
+          onCreated={({ gl }) => {
+            gl.setClearColor(0x000000, 0) // Ensure transparent background
+          }}
+        >
+          <Scene />
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            autoRotate={false}
+            maxPolarAngle={Math.PI / 2}
+            minPolarAngle={Math.PI / 2}
+            enableDamping
+            dampingFactor={0.05}
+          />
+        </Canvas>
+      </div>
       
-      {/* Overlay content */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-center max-w-4xl px-6">
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6 tracking-wide">
-            Handmade wall hangings & gifts
-          </h1>
-          <p className="text-xl md:text-2xl text-slate-600 mb-8 leading-relaxed max-w-xl mx-auto">
-            Modern artistry, traditional soul. Personalised name plates, magnets and festive décor.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pointer-events-auto">
-            <button className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-semibold hover:bg-indigo-700 transition-colors duration-220">
-              Browse Gallery
-            </button>
-            <button className="px-8 py-4 border-2 border-indigo-600 text-indigo-600 rounded-2xl font-semibold hover:bg-indigo-50 transition-colors duration-220">
-              Custom Order
-            </button>
+      {/* Mobile gradient fallback */}
+      <div className="absolute inset-0 -z-10 sm:hidden bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100" />
+      
+      {/* Content wrapper with proper mobile stacking */}
+      <div className="mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8 pt-[max(env(safe-area-inset-top),2rem)] pb-10 sm:pb-16 flex flex-col items-center text-center gap-5 sm:gap-6 min-h-[600px] sm:min-h-[720px]">
+        {/* Headline */}
+        <h1 className="text-[clamp(2rem,6vw,3.25rem)] sm:text-5xl font-extrabold tracking-wide leading-tight text-slate-900">
+          Handmade wall hangings & gifts
+        </h1>
+        
+        {/* Subcopy */}
+        <p className="max-w-prose text-slate-600 text-[clamp(0.95rem,2.5vw,1.125rem)] sm:text-lg leading-relaxed">
+          Modern artistry, traditional soul. Personalised name plates, magnets and festive décor.
+        </p>
+        
+        {/* CTA Group */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+          <button className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-indigo-600 text-white hover:bg-indigo-700 transition-colors duration-220 shadow-[0_10px_30px_rgba(79,70,229,0.2)] sm:shadow-none">
+            Browse Gallery
+          </button>
+          <button className="w-full sm:w-auto px-6 py-3 rounded-2xl border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition-colors duration-220">
+            Custom Order
+          </button>
+        </div>
+        
+        {/* Badges Section - No absolute positioning */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mt-2 sm:mt-4">
+          <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
+            ✨ Handcrafted
+          </div>
+          <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
+            🎨 Personalized
+          </div>
+          <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
+            💝 Perfect Gifts
           </div>
         </div>
       </div>

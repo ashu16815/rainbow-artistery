@@ -46,35 +46,35 @@ export function FloatingBadges() {
 
   if (prefersReducedMotion) {
     return (
-      <div className="flex flex-wrap gap-3 justify-center">
-        <div className="px-3 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium border border-emerald-100">
+      <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
           ✨ Handcrafted
         </div>
-        <div className="px-3 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium border border-indigo-100">
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
           🎨 Personalized
         </div>
-        <div className="px-3 py-2 bg-pink-50 text-pink-700 rounded-full text-sm font-medium border border-pink-100">
-          🎁 Perfect Gifts
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
+          💝 Perfect Gifts
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
+    <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
       <FloatingBadge delay={0} duration={2.5}>
-        <div className="px-3 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium border border-emerald-100">
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
           ✨ Handcrafted
         </div>
       </FloatingBadge>
       <FloatingBadge delay={0.8} duration={2.2}>
-        <div className="px-3 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium border border-indigo-100">
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
           🎨 Personalized
         </div>
       </FloatingBadge>
       <FloatingBadge delay={1.6} duration={2.8}>
-        <div className="px-3 py-2 bg-pink-50 text-pink-700 rounded-full text-sm font-medium border border-pink-100">
-          🎁 Perfect Gifts
+        <div className="inline-flex items-center rounded-full px-4 py-2 text-sm shadow-sm bg-white/70 backdrop-blur ring-1 ring-indigo-100">
+          💝 Perfect Gifts
         </div>
       </FloatingBadge>
     </div>
