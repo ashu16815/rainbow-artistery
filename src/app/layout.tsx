@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { OrganizationJsonLd } from "@/components/seo/json-ld";
 import { defaultMetadata } from "@/lib/metadata";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -61,6 +62,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );

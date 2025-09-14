@@ -53,46 +53,33 @@ export function MediaUploader({
     for (let i = 0; i < newFiles.length; i++) {
       const file = newFiles[i]
       try {
-        // Get signed upload URL
-        const response = await fetch('/api/admin/upload-url', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            filename: file.file.name,
-            contentType: file.file.type,
-            size: file.file.size,
-          }),
-        })
-
-        if (!response.ok) {
-          throw new Error('Failed to get upload URL')
-        }
-
-        const { url, path, publicUrl } = await response.json()
-
-        // Upload file to Supabase
+        // Upload file to Vercel Blob
         const formData = new FormData()
         formData.append('file', file.file)
+        formData.append('prefix', 'products')
 
-        const uploadResponse = await fetch(url, {
+        const response = await fetch('/api/admin/upload-blob', {
           method: 'POST',
           body: formData,
         })
 
-        if (!uploadResponse.ok) {
-          throw new Error('Upload failed')
+        if (!response.ok) {
+          const errorData = await response.json()
+          throw new Error(errorData.error || 'Upload failed')
         }
+
+        const { url, pathname, filename } = await response.json()
 
         // Update file status
         setFiles(prev =>
           prev.map(f =>
             f.file === file.file
-              ? { ...f, status: 'success', progress: 100, url: publicUrl, path }
+              ? { ...f, status: 'success', progress: 100, url, path: pathname }
               : f
           )
         )
 
-        onUpload(publicUrl, path)
+        onUpload(url, pathname)
         toast.success(`${file.file.name} uploaded successfully`)
       } catch (error) {
         setFiles(prev =>

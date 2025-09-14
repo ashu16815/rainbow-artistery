@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { 
   Package, 
@@ -24,6 +24,13 @@ const navigation = [
 
 export function AdminSidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminAuth')
+    localStorage.removeItem('adminUser')
+    router.push('/admin/login')
+  }
 
   return (
     <div className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg border-r">
@@ -54,7 +61,11 @@ export function AdminSidebar() {
 
         {/* Footer */}
         <div className="p-4 border-t">
-          <Button variant="ghost" className="w-full justify-start text-red-600 hover:text-red-700">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start text-red-600 hover:text-red-700"
+            onClick={handleLogout}
+          >
             <LogOut className="h-4 w-4 mr-3" />
             Sign Out
           </Button>
