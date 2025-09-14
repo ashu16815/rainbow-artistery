@@ -4,6 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Toaster } from "@/components/ui/sonner";
+import { OrganizationJsonLd } from "@/components/seo/json-ld";
+import { defaultMetadata } from "@/lib/metadata";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,22 +17,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Rainbow Artistery — Handmade Wall Hangings & Gifts",
-  description: "Personalised name plates, wall hangings, magnets and festive décor. Handmade with love in India.",
-  keywords: ["handmade", "wall hanging", "name plate", "Krishna decor", "gifting", "India"],
-  openGraph: {
-    title: "Rainbow Artistery — Handmade Wall Hangings & Gifts",
-    description: "Personalised name plates, wall hangings, magnets and festive décor. Handmade with love in India.",
-    type: "website",
-    locale: "en_IN",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Rainbow Artistery — Handmade Wall Hangings & Gifts",
-    description: "Personalised name plates, wall hangings, magnets and festive décor. Handmade with love in India.",
-  },
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
@@ -39,6 +26,30 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <OrganizationJsonLd
+          name="Rainbow Artistery"
+          description="Handmade wall hangings & gifts — crafted with love in India. Personalised name plates, fridge magnets, festive décor & more."
+          url={process.env.NEXTAUTH_URL || 'https://rainbowartistery.in'}
+          logo={`${process.env.NEXTAUTH_URL || 'https://rainbowartistery.in'}/logo.png`}
+          sameAs={[
+            process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/rainbowartistery',
+            process.env.NEXT_PUBLIC_WHATSAPP_LINK || 'https://wa.me/919999999999',
+          ]}
+          address={{
+            streetAddress: 'India',
+            addressLocality: 'India',
+            addressRegion: 'India',
+            postalCode: '000000',
+            addressCountry: 'IN',
+          }}
+          contactPoint={{
+            telephone: '+91-9999999999',
+            contactType: 'Customer Service',
+            email: 'hello@rainbowartistery.in',
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

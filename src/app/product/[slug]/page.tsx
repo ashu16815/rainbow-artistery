@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { ProductJsonLd, BreadcrumbJsonLd } from '@/components/seo/json-ld'
 import { ChevronLeft, ChevronRight, Heart, Share2, MessageCircle, Instagram, Star } from 'lucide-react'
 
 // Mock product data - in real app, this would come from database
@@ -102,6 +103,31 @@ Please let me know about availability and pricing.`
 
   return (
     <div className="min-h-screen bg-slate-50">
+      {/* SEO Structured Data */}
+      <ProductJsonLd
+        name={product.title}
+        description={product.description}
+        image={product.coverUrl}
+        price={product.priceINR}
+        currency="INR"
+        category={product.category}
+        offers={{
+          price: product.priceINR || 0,
+          currency: 'INR',
+          availability: 'InStock',
+          seller: {
+            name: 'Rainbow Artistery',
+          },
+        }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Gallery', url: '/gallery' },
+          { name: product.title, url: `/product/${product.slug}` },
+        ]}
+      />
+      
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-slate-600 mb-8">

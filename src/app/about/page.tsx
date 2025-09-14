@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { FAQJsonLd } from '@/components/seo/json-ld'
 import { Heart, Palette, Award, Users } from 'lucide-react'
 
 const features = [
@@ -54,9 +55,38 @@ const process = [
   }
 ]
 
+const faqs = [
+  {
+    question: 'How long does it take to make a custom order?',
+    answer: 'Typically 5-7 business days, depending on complexity and current order volume.'
+  },
+  {
+    question: 'What materials do you use for your products?',
+    answer: 'We use high-quality cotton threads, traditional mirror work, beads, and wooden bases to ensure durability and beauty.'
+  },
+  {
+    question: 'Do you ship outside India?',
+    answer: 'Currently, we only ship within India. International shipping is coming soon!'
+  },
+  {
+    question: 'Can I see a preview before finalizing my order?',
+    answer: 'Yes! We share progress photos during the creation process so you can see your piece coming to life.'
+  },
+  {
+    question: 'What if I\'m not satisfied with my order?',
+    answer: 'We offer a 100% satisfaction guarantee. Contact us for any concerns and we\'ll make it right.'
+  },
+  {
+    question: 'How do I care for my handmade products?',
+    answer: 'Gently dust with a soft, dry cloth. Store in a cool, dry place away from direct sunlight to prevent fading.'
+  }
+]
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen">
+      {/* FAQ Structured Data */}
+      <FAQJsonLd faqs={faqs} />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
         <div className="absolute inset-0 rainbow-gradient opacity-5"></div>
