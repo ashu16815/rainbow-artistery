@@ -20,6 +20,10 @@ export default function AdminLayout({
     
     if (adminAuth === 'true' && adminUser === 'admin') {
       setIsAuthenticated(true)
+      // If we're on the root admin page, redirect to dashboard
+      if (window.location.pathname === '/admin') {
+        router.push('/admin/dashboard')
+      }
     } else {
       router.push('/admin/login')
     }
