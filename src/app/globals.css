@@ -55,9 +55,9 @@
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.556 0 0); /* slate-600 */
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.7 0.2 320); /* fuchsia-500 */
+  --accent: oklch(0.4 0.15 160); /* emerald-600 */
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
@@ -148,13 +148,17 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
   }
   
-  /* Soft shadows */
+  /* Premium shadows */
   .shadow-soft {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   .shadow-soft-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  }
+  
+  .shadow-premium {
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
   }
   
   /* Focus styles for accessibility */

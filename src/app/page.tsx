@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Heart, Palette, Truck, Star, Instagram, MessageCircle } from 'lucide-react'
-import { Hero3DWrapper } from '@/components/3d/hero-3d-wrapper'
-import { FloatingBadges } from '@/components/motion/floating-badges'
+import { Hero } from '@/components/hero'
+import { ProductCard } from '@/components/product-card'
 import { CardReveal, StaggeredReveal } from '@/components/motion/card-reveal'
 import { ArtDivider } from '@/components/motion/art-divider'
 
@@ -99,14 +98,12 @@ const giftingBadges = ['Birthday', 'Housewarming', 'Festivals', 'Baby Naming']
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* 3D Hero Section */}
-      <section className="relative">
-        <Hero3DWrapper />
-      </section>
+      {/* Hero Section */}
+      <Hero />
 
       {/* USP Cards */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <StaggeredReveal className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {uspCards.map((card) => (
               <Card key={card.title} className="text-center shadow-soft hover:shadow-soft-lg transition-all duration-300 group hover:scale-105">
@@ -126,41 +123,15 @@ export default function Home() {
       <ArtDivider />
 
       {/* Featured Products */}
-      <section className="py-16 bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <CardReveal className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900">Featured Products</h2>
             <p className="mt-4 text-lg text-slate-600">Discover our most popular handmade creations</p>
           </CardReveal>
-          <StaggeredReveal className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <StaggeredReveal className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {featuredProducts.map((product) => (
-              <Card key={product.id} className="group hover:shadow-soft-lg transition-all duration-300 hover:scale-105">
-                <div className="aspect-square relative overflow-hidden rounded-t-lg">
-                  <Image
-                    src={product.coverUrl}
-                    alt={product.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold text-slate-900 mb-2 line-clamp-2">{product.title}</h3>
-                  <p className="text-sm text-slate-600 mb-3 line-clamp-2">{product.description}</p>
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {product.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-primary">₹{product.priceINR}</span>
-                    <Button size="sm" asChild>
-                      <Link href={`/product/${product.slug}`}>View Details</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <ProductCard key={product.id} product={product} />
             ))}
           </StaggeredReveal>
           <div className="text-center mt-8">
@@ -172,8 +143,8 @@ export default function Home() {
       </section>
 
       {/* Krishna Highlight */}
-      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Divine Inspirations</h2>
             <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
@@ -188,7 +159,7 @@ export default function Home() {
       </section>
 
       {/* Instagram Reel */}
-      <section className="py-16 bg-white">
+      <section className="py-12 sm:py-16 bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-8">See Our Craft in Action</h2>
           <div className="bg-slate-100 rounded-2xl p-8 mb-6">
@@ -214,8 +185,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-slate-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 bg-slate-50">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900">What Our Customers Say</h2>
             <p className="mt-4 text-lg text-slate-600">Real stories from happy customers across India</p>
@@ -242,8 +213,8 @@ export default function Home() {
       </section>
 
       {/* Gifting Badges */}
-      <section className="py-16 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-8">Perfect for Every Occasion</h2>
           <div className="flex flex-wrap justify-center gap-4">
             {giftingBadges.map((badge) => (
@@ -259,7 +230,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-accent text-white">
+      <section className="py-12 sm:py-16 bg-gradient-to-r from-primary to-accent text-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Create Something Special?</h2>
           <p className="text-lg mb-8 opacity-90">
